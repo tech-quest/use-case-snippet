@@ -4,7 +4,7 @@ require_once __DIR__ . '/../vendor/autoload.php';
 session_start();
 
 if (!isset($_SESSION['user']['id'])) {
-  redirect('./user/signin.php');
+    redirect('./user/signin.php');
 }
 ?>
 

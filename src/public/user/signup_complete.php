@@ -29,9 +29,9 @@ $useCase = new SignUpInteractor($useCaseInput);
 $useCaseOutput = $useCase->handler();
 
 if ($useCaseOutput->isSuccess()) {
-  $_SESSION['message'] = $useCaseOutput->message();
-  redirect('./signin.php');
-}  else {
-  $_SESSION['errors'][] = $useCaseOutput->message();
-  redirect('./signup.php');
+    $_SESSION['message'] = $useCaseOutput->message();
+    redirect('./signin.php');
+} else {
+    $_SESSION['errors'][] = $useCaseOutput->message();
+    redirect('./signup.php');
 }

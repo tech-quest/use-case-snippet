@@ -18,8 +18,8 @@ $useCase = new SignInInteractor($useCaseInput);
 $useCaseOutput = $useCase->handler();
 
 if ($useCaseOutput->isSuccess()) {
-    redirect("../index.php");
+    redirect('../index.php');
 } else {
     $_SESSION['errors'][] = $useCaseOutput->message();
-    redirect("./signin.php");
+    redirect('./signin.php');
 }

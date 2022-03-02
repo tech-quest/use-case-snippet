@@ -1,4 +1,4 @@
-<?php 
+<?php
 namespace App\Usecase\UseCaseInteractor;
 
 use App\Usecase\UseCaseInput\SignInInput;
@@ -7,8 +7,8 @@ use App\Infrastructure\Dao\UserDao;
 
 final class SignInInteractor
 {
-    const FAILED_MESSAGE = "メールアドレスまたは<br />パスワードが間違っています";
-    const SUCCESS_MESSAGE = "ログインしました";
+    const FAILED_MESSAGE = 'メールアドレスまたは<br />パスワードが間違っています';
+    const SUCCESS_MESSAGE = 'ログインしました';
 
     private $userDao;
     private $input;

@@ -16,14 +16,13 @@ final class SignUpOutput
         }
     }
 
-
     public function isSuccess(): bool
     {
-      return $this->isSuccess;
+        return $this->isSuccess;
     }
 
     public function message(): string
     {
-      return $this->message;
+        return $this->message;
     }
 }
