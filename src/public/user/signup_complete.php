@@ -11,27 +11,26 @@ $name = filter_input(INPUT_POST, 'name');
 $password = filter_input(INPUT_POST, 'password');
 $confirmPassword = filter_input(INPUT_POST, 'confirmPassword');
 
-session_start();
-if (empty($password) || empty($confirmPassword)) {
-    $_SESSION['errors'][] = 'パスワードを入力してください';
-}
-if ($password !== $confirmPassword) {
-    $_SESSION['errors'][] = 'パスワードが一致しません';
-}
-if (!empty($_SESSION['errors'])) {
+try {
+    session_start();
+    if (empty($password) || empty($confirmPassword)) {
+        throw new Exception('パスワードを入力してください');
+    }
+    if ($password !== $confirmPassword) {
+        throw new Exception('パスワードが一致しません');
+    }
+    $useCaseInput = new SignUpInput($name, $email, $password);
+    $useCase = new SignUpInteractor($useCaseInput);
+    $useCaseOutput = $useCase->handler();
+
+    if (!$useCaseOutput->isSuccess()) {
+        throw new Exception($useCaseOutput->message());
+    }
+    $_SESSION['errors'][] = $useCaseOutput->message();
+    redirect('./signin.php');
+} catch (Exception $e) {
+    $_SESSION['errors'][] = $e->getMessage();
     $_SESSION['formInputs']['name'] = $name;
     $_SESSION['formInputs']['email'] = $email;
-    redirect('./signup.php');
-}
-
-$useCaseInput = new SignUpInput($name, $email, $password);
-$useCase = new SignUpInteractor($useCaseInput);
-$useCaseOutput = $useCase->handler();
-
-if ($useCaseOutput->isSuccess()) {
-    $_SESSION['message'] = $useCaseOutput->message();
-    redirect('./signin.php');
-} else {
-    $_SESSION['errors'][] = $useCaseOutput->message();
     redirect('./signup.php');
 }
